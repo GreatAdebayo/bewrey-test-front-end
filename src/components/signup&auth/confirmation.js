@@ -5,15 +5,15 @@ import { useParams } from 'react-router';
 import { useNavigate } from "react-router-dom";
 
 const Confirmation = () => {
-    const { setSubmitting, confirmEmail, error, isAutheticated} = useContext(signUpAndAuthContext)
+    const { setSubmitting, confirmEmail, error, isAuthenticated} = useContext(signUpAndAuthContext)
     let navigate = useNavigate();
     let params = useParams();
     
     useEffect(()=>{
-    if(isAutheticated)
+    if(isAuthenticated)
      navigate('/dashboard');
      // eslint-disable-next-line
-    }, [isAutheticated])
+    }, [isAuthenticated])
     
     return <>
      {error  ? <>

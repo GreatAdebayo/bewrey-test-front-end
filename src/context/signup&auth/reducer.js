@@ -23,14 +23,14 @@ const signUpAndAuthReducer = (state, action) => {
         case CONFIRMATION_FAIL:
         case AUTH_ERROR:
         case LOGIN_FAIL:
-        localStorage.removeItem('ctoken')
+            localStorage.removeItem('ctoken')
             return {
                 ...state,
                 error: action.payload,
-                token:null,
-                isAutheticated:false,
-                loading:false,
-                user:null
+                token: null,
+                isAuthenticated: false,
+                loading: false,
+                user: null
             }
         case CLEAR_ERRORS:
             return {
@@ -44,19 +44,21 @@ const signUpAndAuthReducer = (state, action) => {
 
             }
         case REGISTER_SUCCESS:
+        case LOGIN_SUCCESS:
             localStorage.setItem('ctoken', action.payload)
-            return{
+            return {
                 ...state,
-                token:action.payload,
-                isAutheticated:true
+                token: action.payload,
+                isAuthenticated: true,
+                loading: false
             }
-            case USER_LOADED:
-                return{
-                    ...state,
-                    isAutheticated:true,
-                    loading:false,
-                    user:action.payload
-                }
+        case USER_LOADED:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+                user: action.payload
+            }
         default:
             return state
     }

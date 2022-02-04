@@ -24,7 +24,7 @@ import {
 const SignupAndAuthState = (props) => {
     const initialState = {
         token: localStorage.getItem('ctoken'),
-        isAutheticated: null,
+        isAuthenticated: null,
         confirmation: null,
         error: null,
         user: null,
@@ -46,7 +46,7 @@ const SignupAndAuthState = (props) => {
             }
         )
     }
-    
+
 
     //Register Users
     const signup = async formData => {
@@ -109,7 +109,6 @@ const SignupAndAuthState = (props) => {
         }
         try {
             const res = await axios.get(`${baseUrl.uri}auth`);
-            console.log(res)
             dispatch({
                 type: USER_LOADED,
                 payload: res.data.data
@@ -124,7 +123,7 @@ const SignupAndAuthState = (props) => {
     }
 
     //Login Users
-    const login = async formData => {
+    const login = async (formData) => {
         submitting(true);
         const config = {
             headers: {
@@ -135,15 +134,16 @@ const SignupAndAuthState = (props) => {
             const res = await axios.post(`${baseUrl.uri}auth`, formData, config);
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: res.data
+                payload: res.data.token
             })
-            loadUser();
             submitting(false);
+            loadUser();
         } catch (err) {
             dispatch({
                 type: LOGIN_FAIL,
-                payload: err.response.data
+                payload: err.response.msg
             })
+            console.log(err.response)
             submitting(false);
             setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 10000)
         }
@@ -154,7 +154,7 @@ const SignupAndAuthState = (props) => {
     return (
         <signUpAndAuthContext.Provider value={{
             token: state.token,
-            isAutheticated: state.isAutheticated,
+            isAuthenticated: state.isAuthenticated,
             error: state.error,
             user: state.user,
             signup,

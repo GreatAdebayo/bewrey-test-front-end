@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import signUpAndAuthContext from '../../context/signup&auth/context'
@@ -6,7 +6,15 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
+  let navigate = useNavigate();
   const { login, setSubmitting, error, isAuthenticated } = useContext(signUpAndAuthContext)
+
+  useEffect(() => {
+    if (isAuthenticated)
+    navigate('/dashboard');
+    
+    // eslint-disable-next-line
+  }, [isAuthenticated])
   return <>
     {error ? <>
       <div className="col-auto container">
@@ -22,54 +30,54 @@ const Login = () => {
           </div>
         </div>
       </div></> : null}
-      
+
     <div className="registration-form">
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validate={values => {
-        const errors = {};
-        if (!values.email) {
-          errors.email = '*Email Required';
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = 'Invalid email address';
-        } else if (!values.password) {
-          errors.password = '*Password Required';
-        }
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validate={values => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = '*Email Required';
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address';
+          } else if (!values.password) {
+            errors.password = '*Password Required';
+          }
 
-        return errors;
-      }}
-      onSubmit={(values) => {
-        setTimeout(() => {
-          login(values)
-        }, 400);
-      }}
-    >
-      {() => (
+          return errors;
+        }}
+        onSubmit={(values) => {
+          setTimeout(() => {
+            login(values)
+          }, 400);
+        }}
+      >
+        {() => (
 
-        <Form>
-          <div className="form-icon">
-            <span><i className="icon icon-user"></i></span>
-          </div>
-          <div className="form-group">
-            <Field type="email" className="form-control item" name="email" placeholder="Email" />
-            <ErrorMessage name="email" component="small" className='text-danger' />
-          </div>
-          <div className="form-group">
-            <Field type="password" className="form-control item" name="password" placeholder="Password" />
-            <ErrorMessage name="password" component="small" className='text-danger' />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-block create-account">Login</button>
-          </div>
+          <Form>
+            <div className="form-icon">
+              <span><i className="icon icon-user"></i></span>
+            </div>
+            <div className="form-group">
+              <Field type="email" className="form-control item" name="email" placeholder="Email" />
+              <ErrorMessage name="email" component="small" className='text-danger' />
+            </div>
+            <div className="form-group">
+              <Field type="password" className="form-control item" name="password" placeholder="Password" />
+              <ErrorMessage name="password" component="small" className='text-danger' />
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-block create-account">Login</button>
+            </div>
 
-        </Form>
-      )}
-    </Formik>
-    <div className="social-media">
-            <Link to='/signup' style={{ textDecoration: 'none' }}><h5>New? CREATE ACCOUNT</h5></Link>
-          </div>
+          </Form>
+        )}
+      </Formik>
+      <div className="social-media">
+        <Link to='/signup' style={{ textDecoration: 'none' }}><h5>New? CREATE ACCOUNT</h5></Link>
+      </div>
     </div>
 
   </>
