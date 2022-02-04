@@ -12,7 +12,7 @@ const Login = () => {
   useEffect(() => {
     if (isAuthenticated)
     navigate('/dashboard');
-    
+
     // eslint-disable-next-line
   }, [isAuthenticated])
   return <>
@@ -69,7 +69,7 @@ const Login = () => {
               <ErrorMessage name="password" component="small" className='text-danger' />
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-block create-account">Login</button>
+              <button type="submit" className="btn btn-block create-account" disabled={setSubmitting}>Login</button>
             </div>
 
           </Form>
