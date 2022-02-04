@@ -9,7 +9,8 @@ import {
     LOGIN_FAIL,
     // LOGOUT,
     CLEAR_ERRORS,
-    SET_SUBMITTING
+    SET_SUBMITTING,
+    UPLOAD_ERROR
 } from './actions'
 
 const signUpAndAuthReducer = (state, action) => {
@@ -18,6 +19,11 @@ const signUpAndAuthReducer = (state, action) => {
             return {
                 ...state,
                 setSubmitting: action.payload
+            }
+        case UPLOAD_ERROR:
+            return {
+                ...state,
+                error: action.payload
             }
         case REGISTER_FAIL:
         case CONFIRMATION_FAIL:

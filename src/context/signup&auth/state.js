@@ -18,7 +18,7 @@ import {
     // LOGOUT,
     CLEAR_ERRORS,
     SET_SUBMITTING,
-    UPLOAD_SUCCESS
+    UPLOAD_ERROR
 } from './actions'
 
 
@@ -161,7 +161,12 @@ const SignupAndAuthState = (props) => {
                 submitting(false);
                 loadUser();
             } catch (err) {
-                console.log(err)
+                dispatch({
+                    type: UPLOAD_ERROR,
+                    payload: {msg:'picture too large, should be 100kb'}
+                })
+                submitting(false);
+                setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 10000)
             }
         }
     }

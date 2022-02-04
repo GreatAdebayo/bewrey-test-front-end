@@ -3,7 +3,7 @@ import signUpAndAuthContext from '../../context/signup&auth/context'
 // import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { loadUser, user, loading, uploadPicture, setSubmitting } = useContext(signUpAndAuthContext)
+  const { loadUser, user, loading, uploadPicture, setSubmitting, error } = useContext(signUpAndAuthContext)
   const [picture, setPicture] = useState(null)
 
   useEffect(() => {
@@ -21,6 +21,20 @@ const Profile = () => {
   }
 
   return <>
+    {error ? <>
+      <div className="col-auto container">
+        <div className="alert bg-success" role="alert">
+          <div className="d-flex"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-check-circle">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+            <div className="px-3">
+              <h5 className="alert-heading">Error!</h5>
+              <p className="text-capitalize">{error.msg}</p>
+            </div>
+          </div>
+        </div>
+      </div></> : null}
     {!loading ? <div className="container d-flex justify-content-center align-items-center">
       <div className="card">
         <div className="upper"> <img src="https://i.imgur.com/Qtrsrk5.jpg" className="img-fluid" alt='' /> </div>
