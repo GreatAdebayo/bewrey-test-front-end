@@ -18,7 +18,7 @@ const App = () => {
     <SignupAndAuthState>
       <Router>
         <Routes>
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/confirmation/:confirmation" element={<Confirmation />} />
           <Route

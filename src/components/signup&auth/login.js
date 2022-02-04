@@ -76,7 +76,7 @@ const Login = () => {
         )}
       </Formik>
       <div className="social-media">
-        <Link to='/signup' style={{ textDecoration: 'none' }}><h5>New? CREATE ACCOUNT</h5></Link>
+        <Link to='/' style={{ textDecoration: 'none' }}><h5>New? CREATE ACCOUNT</h5></Link>
       </div>
     </div>
 
