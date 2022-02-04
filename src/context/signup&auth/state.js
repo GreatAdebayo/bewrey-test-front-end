@@ -15,7 +15,7 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT,
+    // LOGOUT,
     CLEAR_ERRORS,
     SET_SUBMITTING
 } from './actions'
