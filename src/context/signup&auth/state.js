@@ -17,7 +17,8 @@ import {
     LOGIN_FAIL,
     // LOGOUT,
     CLEAR_ERRORS,
-    SET_SUBMITTING
+    SET_SUBMITTING,
+    UPLOAD_SUCCESS
 } from './actions'
 
 
@@ -143,11 +144,26 @@ const SignupAndAuthState = (props) => {
                 type: LOGIN_FAIL,
                 payload: err.response.msg
             })
-            console.log(err.response)
             submitting(false);
             setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 10000)
         }
 
+    }
+
+
+    const uploadPicture = async (picture) => {
+        submitting(true);
+        if (picture) {
+            let formData = new FormData();
+            formData.append('profilePicture', picture)
+            try {
+                await axios.post(`${baseUrl.uri}profile-picture`, formData)
+                submitting(false);
+                loadUser();
+            } catch (err) {
+                console.log(err)
+            }
+        }
     }
 
 
@@ -163,7 +179,8 @@ const SignupAndAuthState = (props) => {
             confirmEmail,
             loading: state.loading,
             loadUser,
-            login
+            login,
+            uploadPicture
         }}>
             {props.children}
         </signUpAndAuthContext.Provider>
